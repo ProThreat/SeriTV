@@ -29,8 +29,8 @@ Route::get('/seri/{$seri}', function () {
 Route::get('/admin/seri/', 'SeriController@index_admin');
 Route::get('/admin/seri/create', 'SeriController@create');
 Route::post('/admin/seri/create', 'SeriController@store');
-Route::get('/admin/seri/ajax', 'SeriController@ajax');
-Route::post('/admin/seri/ajax', 'SeriController@postAjax');
+Route::get('/admin/seri/crews/ajax', 'SeriCrewController@ajax');
+Route::post('/admin/seri/crews/ajax', 'SeriCrewController@postAjax');
 //Seri Genre
 Route::get('/admin/seri/genre', 'SeriGenreController@index');
 Route::post('/admin/seri/genre', 'SeriGenreController@store');

@@ -22,13 +22,6 @@ class SeriController extends Controller
         return view('seri.items', compact('result'));
     }
 
-    public function ajax()
-    {
-        $crew = Crew::all();
-
-        return view('seri.admin.crew.ajax', compact('crew', 'amount', 'offset'));
-    }
-
     public function index_admin()
     {
         $result = Seri::all();

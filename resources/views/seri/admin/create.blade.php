@@ -110,12 +110,14 @@
                             <h3>Details</h3>
                             <section>
                                 <div class="description expand">
+                                    <h4>Description</h4>
                                     <textarea class="blend-style" placeholder="Insert description here...">Dit is een test. The Avengers, will they survive against the monsters that have taken over the earth?</textarea>
                                     {{-- <p>Dit is een test. The Avengers, will they survive against the monsters that have taken over the earth?</p> --}}
                                     {{-- <a href="#readmore" class="readmore">Read more</a> --}}
                                 </div>
                                 <div class="background expand">
-                                    <textarea class="no-style" placeholder="Insert description here...">No background information has been added</textarea>
+                                    <h4>Background information</h4>
+                                    <textarea class="blend-style" placeholder="Insert description here...">No background information has been added</textarea>
                                 </div>
                             </section>
                             <h3>Videos</h3>
@@ -132,12 +134,12 @@
                             </section>
                             <h3>Crew</h3>
                             <section>
-                                <div class="staff-group stars">
+                                <div class="crew-group stars">
                                     <?php //TODO change so it actually renders crew from popup ?>
-                                    <div class="staff-box" style="background-image: url('/img/<?=$seri['crews'][0]->images?>')">
+                                    <div class="crew-box" style="background-image: url('/img/<?=$seri['crews'][0]->images?>')">
                                         <input type="hidden" name="crew_id[]" value="<?=$seri['crews'][0]->id?>">
                                     </div>
-                                    <a href="#" class="staff-add" data-popup="crews">
+                                    <a href="#" class="crew-add" data-popup="crews">
                                         <span><i class="fa fa-plus"></i></span>
                                     </a>
                                 </div>

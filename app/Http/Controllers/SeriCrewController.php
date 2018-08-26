@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Crew;
 
 class SeriCrewController extends Controller
 {
@@ -18,5 +19,20 @@ class SeriCrewController extends Controller
 
         // Return
         return view('seri.admin.crew.index', compact('crew'));
+    }
+
+
+    public function ajax()
+    {
+        $crew = Crew::all();
+
+        return view('seri.admin.crews.ajax', compact('crew', 'amount', 'offset'));
+    }
+
+    public function postAjax()
+    {
+        $crew = Crew::all();
+
+        return view('seri.admin.crews.ajax', compact('crew', 'amount', 'offset'));
     }
 }

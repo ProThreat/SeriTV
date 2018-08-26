@@ -32,17 +32,18 @@
 			// On click behavior
 			$('a[data-popup]').on('click', function()
 			{
+					// Get names
+					var name = $(this).data('popup');
+
 					// Get new URL
 					var url = window.location.href;
 					var splitUrl = url.substring(url.lastIndexOf('/') + 1);
-					var fullUrl = url.replace(splitUrl, 'ajax');
-
-					// Get names
-					var name = $(this).data('popup');
+					var fullUrl = url.replace(splitUrl, name + '/ajax');
 
 					// Get popup information
 					$.post(fullUrl,
                 {
+										'_token': $('meta[name=csrf-token]').attr('content'),
                     name: name
                 }
 
@@ -52,12 +53,29 @@
 										}
 								).fail(
 										function(xhr, status, error) {
-						        // error handling
+						        		// error handling
 						    		}
 								);
+					// End popup information
 
 					// Append to body
 					//$('body').append();
+			});
+
+			// Inner popup behavior
+			var $filter = 	$('.SeriPopup input'),
+					$crew = $('.crew-group .crew-box');
+
+			$filter.on('keyup', function() {
+					for (i = 0; i < $crew.length; i++) {
+							var td = $crew[i];
+							if (td) {
+									if ( $(td).find('input[name="crew_name"]').val().indexOf( $filter.val().toUpperCase()  ) > -1)
+											td.style.display = "";
+									else
+											td.style.display = "none";
+							}
+					}
 			});
 	},
 
