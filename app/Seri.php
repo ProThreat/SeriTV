@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seri extends Model
 {
-    protected $fillable = ['name', 'description', 'release_date', 'type', 'genre', 'stars', 'directors', 'writers', 'cast'];
+    protected $fillable = ['name', 'short_description', 'description', 'release_date', 'seasons', 'episodes', 'aired', 'duration', 'additional_information', 'type', 'genre', 'crew'];
+
+    protected $casts = [
+        'name' => 'array',
+        'aired' => 'array',
+        'release_date' => 'date',
+        'additional_information' => 'array',
+    ];
 
     // Get all of the genres for the 'Seri'.
     public function genres()

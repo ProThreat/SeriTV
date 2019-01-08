@@ -22,7 +22,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 
     </head>
-    <body class="{{ str_replace('/', '_', Request::path()) }} {{ @$layout }}">
+    <body class="{{ str_replace('/', '_', Request::path()) }} editForm">
 
         <?php // Check permissions ?>
         {{-- @include('layouts.permissions') --}}
@@ -30,8 +30,14 @@
         <?php // Add navigation ?>
         @include('layouts.nav')
 
-        <div class="content">
-            @yield('content')
+        <div class="scrollable-content">
+            <div class="content">
+
+                @include('layouts.sidemenu')
+
+                @yield('content')
+            </div>
+            <div class="swipe-area"><i class="fa fa-angle-left bounce"></i></div>
         </div>
 
         <?php // Add footer ?>

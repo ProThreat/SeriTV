@@ -1,8 +1,8 @@
-@extends('layouts.index')
+@extends('layouts.form')
 
 @section('content')
 
-    <form method="post">
+<form method="post">
 
     {{ csrf_field() }}
 
@@ -49,8 +49,7 @@
                     </tr>
                 @endforeach
                 <tr class="add_table_row">
-                    <td></td>
-                    <td>
+                    <td colspan="2">
                         <input type="text" class="form-control" name="row[0][genre]">
                     </td>
                     <td>
@@ -60,6 +59,8 @@
                     </td>
                 </tr>
         </table>
-    </form>
+    </div>
+
+</form>
 
 @endsection

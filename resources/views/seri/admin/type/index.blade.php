@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.form')
 
 @section('content')
 
@@ -49,8 +49,7 @@
                     </tr>
                 @endforeach
                 <tr class="add_table_row">
-                    <td></td>
-                    <td>
+                    <td colspan="2">
                         <input type="text" class="form-control" name="row[0][type]">
                     </td>
                     <td>
@@ -60,6 +59,8 @@
                     </td>
                 </tr>
         </table>
+    </div>
+
     </form>
 
 @endsection

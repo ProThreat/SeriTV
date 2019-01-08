@@ -9,19 +9,11 @@
 
             <div class="images">
                 <div class="overlay"></div>
-                <div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
-                    <div id="drag_upload_file">
-                        <p>Drop file here</p>
-                        <p>or</p>
-                        <p><input type="button" value="Select File" onclick="file_explorer();"></p>
-                        <input type="file" id="selectfile">
-                    </div>
-                </div>
-                <!-- <div class="slider owl-carousel">
+                <div class="slider owl-carousel">
                     @foreach(['cat.jpg'] as $item)
                         <div class="slide dropzone" style="background-image: url({{ asset('img/' . $item) }})"></div>
                     @endforeach
-                </div> -->
+                </div>
             </div>
 
             <div class="seri-information container">
@@ -29,7 +21,8 @@
                 <div class="row">
                     <div class="col-5 col-md-4 col-lg-3">
                         <div class="image" style="background-image:url({{ asset('img/' . 'cat.jpg')}})"></div>
-                        <div class="thumbnailImage" id="uploadFile"></div>
+                        <div class="dropzone" id="uploadFile"></div>
+                        <div class="upload-files" id="sliderImage" data-name="sliderImages[]"></div>
                     </div>
 
                     <div class="short-information col-7 col-md-8 col-lg-9">

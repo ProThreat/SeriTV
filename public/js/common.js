@@ -6,12 +6,45 @@
 
 	onDOMLoad: function()
 	{
+			this.initMenus();
 			//this.initHeaderModule();
 			this.initItemSlider();
 			this.initSeriItem();
 			this.initImageUpload();
 			this.initEditingForm();
 			this.initPopup();
+	},
+
+	initMenus: function()
+	{
+			// Check swipe
+			$(".swipe-area").swipe({
+			    swipeStatus:function(event, phase, direction, distance, duration, fingers)
+			        {
+									// If swipe right
+			            if ( phase == "move" && direction == "right" )
+									{
+											// Open sidebar
+			               	$(".content").addClass("openMenu");
+
+											//
+			                return false;
+			            }
+									// If swipe left
+			            if ( phase == "move" && direction == "left" )
+									{
+											// Close sidebar
+			                $(".content").removeClass("openMenu");
+
+											//
+			                return false;
+			            }
+			        }
+			});
+
+			setTimeout(function() {
+					$('.bounce').css({'opacity': '0'})
+			}, 1800);
 	},
 
 	initHeaderModule: function()
@@ -29,11 +62,32 @@
 
 	initPopup: function()
 	{
+			var groupType = '';
+
+			// Delay for typing
+			function delay(callback, ms) {
+					var timer = 0;
+					return function() {
+							var context = this, args = arguments;
+							clearTimeout(timer);
+							timer = setTimeout(function () {
+								callback.apply(context, args);
+							}, ms || 0);
+					};
+			}
+
 			// On click behavior
 			$('a[data-popup]').on('click', function()
 			{
+					// Set group type
+					groupType = $(this).data('type');
+
+					// Disable Scroll
+					$('body').css({'overflow-y': 'hidden'});
+
 					// Get names
-					var name = $(this).data('popup');
+					var name = $(this).data('popup'),
+							crew_type = $(this).data('type');
 
 					// Get new URL
 					var url = window.location.href;
@@ -41,42 +95,151 @@
 					var fullUrl = url.replace(splitUrl, name + '/ajax');
 
 					// Get popup information
-					$.post(fullUrl,
-                {
-										'_token': $('meta[name=csrf-token]').attr('content'),
-                    name: name
-                }
+					getPopupInformation();
 
-								).done(
-										function(msg){
+					//
+					function getPopupInformation(offset = null)
+					{
+							// Get popup information based on link
+							$.post(fullUrl,
+		                {
+												'_token': $('meta[name=csrf-token]').attr('content'),
+		                    name: name,
+												offset: offset,
+												crew_type: crew_type,
+		                }
 
-										}
-								).fail(
-										function(xhr, status, error) {
-						        		// error handling
-						    		}
-								);
-					// End popup information
+										).done(
+												function(response)
+												{
+														// Overlay
+														var $overlay = $('.SeriOverlay');
 
-					// Append to body
-					//$('body').append();
-			});
+														// Update popup?
+														if( $overlay.length )
+																$overlay.html(response);
 
-			// Inner popup behavior
-			var $filter = 	$('.SeriPopup input'),
-					$crew = $('.crew-group .crew-box');
+														// Append to body
+														else
+																$('body').append(response);
 
-			$filter.on('keyup', function() {
-					for (i = 0; i < $crew.length; i++) {
-							var td = $crew[i];
-							if (td) {
-									if ( $(td).find('input[name="crew_name"]').val().indexOf( $filter.val().toUpperCase()  ) > -1)
-											td.style.display = "";
-									else
-											td.style.display = "none";
-							}
+														refreshPopup();
+														refreshPagination();
+												}
+										).fail(
+												function(xhr, status, error) {
+								        		// error handling
+								    		}
+										);
+					}
+
+					refreshPagination();
+
+					function refreshPagination()
+					{
+							setTimeout(function()
+							{
+									// Pagination
+									$('.SeriPopup .pagination .page-item').on('click', function()
+									{
+											// Update pagination
+											getPopupInformation( $(this).find('.page-link').text() );
+									});
+							}, 200);
 					}
 			});
+
+			function refreshPopup()
+			{
+					// Inner popup behavior
+					var $filter = $('.SeriPopup input'),
+							$crew = $('.SeriPopup .crew-group.'+groupType+' .crew-box'),
+							$addButton = $('.SeriPopup .addButton'),
+							$closeButton = $('.SeriPopup .closeButton');
+
+					$filter.on('keyup', delay(function(e)
+					{
+							// Return to normal pagination if there is nothing typed in search field
+							if(!this.value)
+							{
+									// Reset all styling
+									$('.SeriPopup .crew-group.'+groupType+' .crew-box').css('display', 'block');
+									$('.SeriPopup .crew-group.'+groupType+' .crew-box').removeClass('search-show');
+
+									//
+									return;
+							}
+
+							// Check search results for each row
+							for (i = 0; i < $crew.length; i++)
+							{
+									// Get row
+									var td = $crew[i];
+
+									//
+									if (td) {
+											if ( $(td).find('input[name="crew_name"]').val().indexOf( $filter.val().toUpperCase() ) > -1)
+											{
+													// Show anyway because of search
+													$(td).addClass('search-show');
+
+													// Reset display styling
+													td.style.display = "";
+											}
+											else
+													// Don't show item
+													td.style.display = "none";
+									}
+							}
+					}, 400));
+
+					// Click behavior
+					$crew.on('click', function()
+					{
+							// Add selected class
+							$(this).toggleClass('selected');
+					});
+
+					// Only close Popup
+					$closeButton.on('click', function()
+					{
+							// Turn on scroll on body
+							$('body').attr('style', '');
+
+							// Remove overlay
+							$(this).parents('.SeriOverlay').remove();
+					});
+
+					// Add crew and close popup
+					$addButton.on('click', function()
+					{
+							// Add crew to view
+							$.each( $(this).parents('.SeriPopup').find('.crew-box.selected'), function()
+							{
+									// Append clone of object
+									$('.seri .seri-information .seri-body .crew-group.'+groupType+' .crew-add').before( $(this).clone() );
+							});
+
+							// Turn on scroll on body
+							$('body').attr('style', '');
+
+							// Remove overlay
+							$(this).parents('.SeriOverlay').remove();
+
+							// Refresh function for removing crew members
+							refreshDelete();
+					});
+
+			}
+
+			refreshDelete();
+			function refreshDelete()
+			{
+					// Delete items on click
+					$('.seri .seri-information .seri-body .crew-group .crew-box .image').on('click', function() {
+							$(this).parents('.crew-box').remove();
+					});
+			}
 	},
 
 	initItemSlider: function()
@@ -140,11 +303,12 @@
 			$(this).parents('.item')
 				.addClass('.item-popup')
 				.css({position: 'fixed', top: offset.top, left: offset.left, 'z-index': '10', width: width})
-				setTimeout(function(){
-			        el.animate({width: "30vw"}, {duration: 1200, queue: false})
-						.delay(50).animate({left: '50%', transform: 'translateX(-50%)'}, {duration: 10000})
-						.delay(25).animate({top: '50%', transform: 'translateY(-50%)'}, {duration: 11200})
-						.delay(50).animate({height: '50vw'}, {duration: 300});
+				setTimeout(function()
+				{
+			      el.animate({width: "30vw"}, {duration: 1200, queue: false})
+							.delay(50).animate({left: '50%', transform: 'translateX(-50%)'}, {duration: 10000})
+							.delay(25).animate({top: '50%', transform: 'translateY(-50%)'}, {duration: 11200})
+							.delay(50).animate({height: '50vw'}, {duration: 300});
 		        },100);
 
 				//.animate({height: '50vw', width: '30vw', top: '50%', left: '50%' });
@@ -155,219 +319,132 @@
 	//Code that should run when viewing a 'seri'
 	initSeriItem: function()
 	{
-		// Fit text in items
-		// $('.content .flex .item .title, .textfit').textfill({
-		// 	'minFontPixels': 15,
-		// 	'maxFontPixels': 19,
-		// });
+			// Fit text in items
+			// $('.content .flex .item .title, .textfit').textfill({
+			// 	'minFontPixels': 15,
+			// 	'maxFontPixels': 19,
+			// });
 
-		// Activate popover for title
-		$(".popover").popover({ trigger: "hover" });
+			// Activate popover for title
+			$(".popover").popover({ trigger: "hover" });
 
-		$('.seri .images .slider')
-		.owlCarousel({
-		    center: true,
-		    items:1,
-		    loop:true,
-				nav: false,
-				pagination: false
-		});
+			$('.seri .images .slider')
+			.owlCarousel({
+			    center: true,
+			    items:1,
+			    loop:true,
+					nav: false,
+					pagination: false
+			});
 
-        // $('#test').simplyTag(
-        // {
-        //     forMultiple: true,
-        //     dataSource: JSON.parse('[{ "key": 1, "value": "jQuery" }, { "key": 2, "value": "Script" }, { "key": 3, "value": "Net" }]')
-        // });
+			// Add more 'seri' names
+			$('.seri.edit .seri-information .seriBar .add_input#name').on('click', function() {
+					$('.seri.edit .seri-information .seriBar.name ul').append('<li><input class="name_input no-style" name="name[]" value="" placeholder="Title here..."></li>');
+			});
+			// Change name in short-information
+			$('.seri.edit .seri-information .seriBar.name ul li input:first-child').change(function() {
+					$('.seri.edit .seri-information .short-information .top h1').text($('.seri.edit .seri-information .seriBar.name ul li input:first-child').val())
+			});
 
-		// Add more 'seri' names
-		$('.seri.edit .seri-information .seriBar .add_input#name').on('click', function() {
-			$('.seri.edit .seri-information .seriBar.name ul').append('<li><input class="name_input no-style" name="name[]" value="" placeholder="Title here..."></li>');
-		});
-		// Change name in short-information
-		$('.seri.edit .seri-information .seriBar.name ul li input:first-child').change(function() {
-			$('.seri.edit .seri-information .short-information .top h1').text($('.seri.edit .seri-information .seriBar.name ul li input:first-child').val())
-		});
+			// Select fields as tag fields
+			$('.seri.edit .seri-information select.tags').tokenize2();
 
-		// Genres as tags
-		$('.seri.edit .seri-information .genre_select').tokenize2();
+			$('.seri .seri-information .readmore').on('click', function(event)
+			{
+				// Prevent redirect
+				event.preventDefault();
 
-		$('.seri .seri-information .readmore').on('click', function(event) {
-			// Prevent redirect (a tag)
-			event.preventDefault();
-			// Toggle max height
-			$(this).parents('div.expand').find('p').toggleClass('mx-hta');
+				// Toggle max height
+				$(this).parents('div.expand').find('p').toggleClass('mx-hta');
 
-			// Change text
-			if($(this).text() == 'Read more')
-				$(this).text('Read less');
-			else
-	           $(this).text('Read more');
-		});
+				// Change text
+				if($(this).text() == 'Read more')
+						$(this).text('Read less');
+				else
+		        $(this).text('Read more');
+			});
 
-		$(".seri .seri-information .seri-body .steps").steps({
-		    headerTag: "h3",
-		    bodyTag: "section",
-		    transitionEffect: "slideLeft",
-		    enableFinishButton: false,
-		    enablePagination: false,
-		    enableAllSteps: true,
-		    titleTemplate: "#title#",
-		    cssClass: "tabcontrol"
-		});
+			// Add steps
+			$(".seri .seri-information .seri-body .steps").steps({
+			    headerTag: "h3",
+			    bodyTag: "section",
+			    transitionEffect: "slideLeft",
+			    enableFinishButton: false,
+			    enablePagination: false,
+			    enableAllSteps: true,
+			    titleTemplate: "#title#",
+			    cssClass: "tabcontrol"
+			});
 
 	},
 
 	initImageUpload: function()
 	{
 
-		$("#uploadFile").dropzone({
-		  	paramName: "file", // The name that will be used to transfer the file
-		  	maxFilesize: 5, // MB
-			autoProcessQueue: false,
-			previewTemplate: '#image_preview',
-		  	accept: function(file, done) {
-		    	done();
-		  	}
-		});
+			// Main image
+			$("#uploadFile").dropzone({
+					url: '/admin/seri/upload-image',
+			  	paramName: "file", // The name that will be used to transfer the file
+			  	maxFilesize: 5, // MB
+					acceptedFiles: '.jpg, .jpeg, .png, .svg',
+					autoProcessQueue: false,
+			  	accept: function(file, done) {
+			    		// done();
+			  	},
+			});
 
-		$("#uploadSliderfiles").dropzone({
-		  	paramName: "file", // The name that will be used to transfer the file
-		  	maxFilesize: 5, // MB
-			uploadMultiple: true,
-			autoProcessQueue: false,
-		  	accept: function(file, done) {
-		    	done();
-		  	}
-		});
+			// $("#uploadSliderfiles").dropzone({
+			//   	paramName: "images", // The name that will be used to transfer the file
+			//   	maxFilesize: 5, // MB
+			// 		uploadMultiple: true,
+			// 		autoProcessQueue: false,
+			//   	accept: function(file, done) {
+			//     		done();
+			//   	}
+			// });
 
-		$("#uploadFile").change(function(){
-			$('#image_preview').html("");
+			$("#uploadFile").change(function()
+			{
+					// Change html
+					$('.seri .seri-information .image').html("");
 
-		     var total_file=document.getElementById("uploadFile").files.length;
-		     for(var i=0;i<total_file;i++) {
-			     $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
-		     }
+					// Get files
+					var total_file=document.getElementById("uploadFile").files.length;
 
-	  	});
+					// Apply file
+					for(var i=0;i<total_file;i++)
+					 		$('.seri .seri-information .image').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+
+			 });
 	},
 
 	initEditingForm: function()
 	{
-		//Click?
-	    $(".edit-form").click(function(){
-	        //Remove disabled inputs
+			// Focus input
+			$('.editForm .add_table_row input').focus();
+
+			// Click?
+	    $(".edit-form").click(function() {
+	        // Remove disabled inputs
 	        $("input:not([name*=delete])").prop("disabled", false);
 
-	        //Show delete row
+	        // Show delete row
 	        $('.edit-form-index').hide();
 	        $('.edit-form-show').show().addClass('xs-block');
 
-	        //Change opacity label
+	        // Change opacity label
 	        $("input").parent('label.btn-badge').css({opacity:'1'});
 
-	        //Replace edit button to save button
-	        $(".edit-form").replaceWith("<button class='btn btn-primary btn-submit edit-form' type='submit' name='updateOrCreate'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><span>Save</span></button>");
+	        // Replace edit button to save button
+	        $(".edit-form").replaceWith("<button class='btn btn-primary btn-submit edit-form' type='submit' name='updateOrCreate'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <span>Save</span></button>");
 	    });
 
-	    //Click?
+	    // Click?
 	    $("button[name=deleteRow]").click(function(){
 	        $(this).parent('td').parent('tr').toggleClass('deleteRow');
 	        $(this).parent('td').find('input[name*=delete]').prop('disabled', function(i, v) { return !v; });
 	    });
 
 	},
-
-	initMaterialMotions: function()
-	{
-		/** Ripple effect **/
-		$(".paper").mousedown(function(e) {
- 		//    console.log($(this).offset().left);
- 		//    console.log(e.pageX);
- 		//    console.log($(this).offset().left - ( $(this).find(".ripple").width() ));
- 		//    console.log($(this).offset().left - ( $(this).find(".ripple").width() /2 ));
- 	      var ripple = $(this).find(".ripple");
- 	      ripple.removeClass("animate");
- 	      var x = parseInt(e.pageX - $(this).offset().left) - (ripple.width() / 2);
- 	      var y = parseInt(e.pageY - $(this).offset().top) - (ripple.height() / 2);
- 	      ripple.css({
- 	         top: y,
- 	         left: x
- 	      }).addClass("animate");
- 	   });
-
-	   /** Material expand motion **/
-	   $.Velocity.defaults.easing = [0.4, 0.0, 0.2, 1];
-	   $.Velocity.defaults.queue = false;
-
-	   var $box = $(".box");
-	   var box_expanded = false;
-
-	   $box.click(function() {
-		 box_expanded === false ? expand_animation() : collapse_animation();
-	   });
-
-	   var offset = $box.offset();
-	   var width = $box.outerWidth();
-
-	   var expand_animation = function() {
-		 $box
-		   //.css({position:'fixed', top: offset.top, left: offset.left, width: width})
-		   .velocity(
-			 {
-			   width: 300,
-			   top: '50%',
-			   translateY: '-50%',
-			   'z-index': '10'
-			 },
-			 {
-			   duration: 280
-			 }
-		   )
-		   .velocity(
-			 {
-			   height: 300,
-			   left: '50%',
-			   translateX: '-50%'
-			 },
-			 {
-			   delay: 35,
-			   duration: 340,
-			   complete: function() {
-				 box_expanded = true;
-			   }
-			 }
-		   );
-	   };
-	   var collapse_animation = function() {
-		 $box
-		   .velocity(
-			 {
-			   position: 'relative',
-			   width: 100,
-			   top: 0,
-			   translateY: 0,
-			   'z-index': '1'
-			 },
-			 {
-			   duration: 320,
-			   delay: 55
-			 }
-		   )
-		   .velocity(
-			 {
-			   height: 100,
-			   left: 0,
-			   translateX: 0,
-			 },
-			 {
-			   duration: 320,
-			   complete: function() {
-				 box_expanded = false;
-			   }
-			 }
-		 )
-		 //.removeAttr('style')
-	   };
-   	},
 
 }).init();
