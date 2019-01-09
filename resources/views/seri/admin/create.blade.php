@@ -17,7 +17,6 @@
                         <input type="file" id="selectfile">
                     </div>
                 </div>
-
                 <!-- <div class="slider owl-carousel">
                     @foreach(['cat.jpg'] as $item)
                         <div class="slide dropzone" style="background-image: url({{ asset('img/' . $item) }})"></div>
@@ -30,9 +29,7 @@
                 <div class="row">
                     <div class="col-5 col-md-4 col-lg-3">
                         <div class="image" style="background-image:url({{ asset('img/' . 'cat.jpg')}})"></div>
-
-                        <!-- We'll transform this input into a pond -->
-                        <input type="file" class="filepond">
+                        <div class="thumbnailImage" id="uploadFile"></div>
                     </div>
 
                     <div class="short-information col-7 col-md-8 col-lg-9">
