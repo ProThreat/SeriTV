@@ -16,6 +16,8 @@
         <link rel="stylesheet" type="text/css" href="/css/dropzone.css">
         <link href="/css/simply-tag.css" rel="stylesheet">
         <link href="/css/tokenize2.min.css" rel="stylesheet">
+        <link href="/css/filepond-plugin-image-preview.css" rel="stylesheet">
+        <link href="/css/filepond.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
 
         {{-- Fonts --}}
@@ -24,19 +26,24 @@
     </head>
     <body class="{{ str_replace('/', '_', Request::path()) }} {{ @$layout }}">
 
-        <?php // Check permissions ?>
-        {{-- @include('layouts.permissions') --}}
+        <div id="app">
 
-        <?php // Add navigation ?>
-        @include('layouts.nav')
+            <example-component></example-component>
 
-        <div class="content">
-            @yield('content')
+            <?php // Check permissions ?>
+            {{-- @include('layouts.permissions') --}}
+
+            <?php // Add navigation ?>
+            @include('layouts.nav')
+
+            <div class="content">
+                @yield('content')
+            </div>
+
         </div>
 
         <?php // Add footer ?>
         @include('layouts.footer')
-
 
     </body>
 </html>

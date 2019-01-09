@@ -381,6 +381,8 @@
 	initImageUpload: function()
 	{
 
+			FilePond.parse(document.body);
+			
 			// Main image
 			$("#uploadFile").dropzone({
 					url: '/admin/seri/upload-image',

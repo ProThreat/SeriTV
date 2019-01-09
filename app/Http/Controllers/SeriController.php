@@ -45,7 +45,7 @@ class SeriController extends Controller
 
     public function store(Request $request)
     {
-        dd(Input::all(), Input::file('File'));
+        dd($_POST, Input::all(), Input::file('File'));
         // Check image upload
         // request()->validate([
         //     'uploadFile' => 'required',
@@ -100,7 +100,7 @@ class SeriController extends Controller
             'additional_information' => request('additional_information')
         ]);
 
-        /** Star saving pivots **/
+        /** Start saving pivots **/
 
         // Save genres
         $seri->genres()->attach(request('genre'));
