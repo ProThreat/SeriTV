@@ -1,18 +1,8 @@
-# Wow de project
-
-A better IMDB in the making
-
-## Contributers
-
-- Kevin Ernst
-- Gijsla Abele
-- Dwayne Hulsman
-
-## client
+# client
 
 > SeriTV client
 
-### Build Setup
+## Build Setup
 
 ``` bash
 # install dependencies
@@ -38,5 +28,3 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-[![forthebadge](https://forthebadge.com/images/badges/powered-by-jeffs-keyboard.svg)](https://forthebadge.com)
