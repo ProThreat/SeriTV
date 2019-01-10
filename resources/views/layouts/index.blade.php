@@ -33,6 +33,9 @@
             @include('layouts.nav')
 
             <div class="content">
+
+                <router-view></router-view>
+
                 @yield('content')
             </div>
 
