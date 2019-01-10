@@ -7,15 +7,15 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-      {
-        path: '/',
-        name: 'Home',
-        component: Home
-      },
-      {
-        path: '/admin/series/create',
-        name: 'Create series',
-        component: CreateSerie
-      },
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/admin/series/create',
+      name: 'Create series',
+      component: CreateSerie
+    }
   ]
 })

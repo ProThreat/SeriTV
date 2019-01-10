@@ -11,7 +11,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
   data () {
     return {
-        
     }
   }
 }
