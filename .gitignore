@@ -11,4 +11,4 @@ npm-debug.log
 yarn-error.log
 .env
 package.lock
-/client/build
+client/package-lock.json
