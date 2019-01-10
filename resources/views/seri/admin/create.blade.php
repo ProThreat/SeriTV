@@ -4,7 +4,7 @@
 
     <div class="seri edit">
 
-        <example-component></example-component>
+        <vue-image-upload></vue-image-upload>
 
         <form method="post" action="/admin/seri/create" autocomplete="off" enctype="multipart/form-data">
             {{ csrf_field() }}
