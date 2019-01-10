@@ -41,3 +41,7 @@ Route::post('/admin/seri/genre', 'SeriGenreController@store');
 //Seri Type
 Route::get('/admin/seri/type', 'SeriTypeController@index');
 Route::post('/admin/seri/type', 'SeriTypeController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

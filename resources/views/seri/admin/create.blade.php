@@ -4,6 +4,8 @@
 
     <div class="seri edit">
 
+        <example-component></example-component>
+
         <form method="post" action="/admin/seri/create" autocomplete="off" enctype="multipart/form-data">
             {{ csrf_field() }}
 

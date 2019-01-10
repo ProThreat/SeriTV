@@ -24,19 +24,22 @@
     </head>
     <body class="{{ str_replace('/', '_', Request::path()) }} {{ @$layout }}">
 
-        <?php // Check permissions ?>
-        {{-- @include('layouts.permissions') --}}
+        <div id="app">
 
-        <?php // Add navigation ?>
-        @include('layouts.nav')
+            <?php // Check permissions ?>
+            {{-- @include('layouts.permissions') --}}
 
-        <div class="content">
-            @yield('content')
+            <?php // Add navigation ?>
+            @include('layouts.nav')
+
+            <div class="content">
+                @yield('content')
+            </div>
+
         </div>
 
         <?php // Add footer ?>
         @include('layouts.footer')
-
 
     </body>
 </html>
