@@ -23,10 +23,10 @@ Route::prefix('v1')->group(function() {
     });
 
     // Series
-    // Route::prefix('series')->group(function() {
-    //     Route::get('/', 'SerieController@getSeries');
-    //     Route::get('/{id}', 'SerieController@getSerie');
-    // });
+    Route::prefix('series')->group(function() {
+        Route::get('/', 'SerieController@getSeries');
+        Route::get('/{id}', 'SerieController@getSerie');
+    });
 
 
 });
