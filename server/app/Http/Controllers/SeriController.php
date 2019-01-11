@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 use \App\Seri;
+use \App\Film;
 
 class SeriController extends Controller
 {
@@ -13,7 +14,7 @@ class SeriController extends Controller
     //Check logged in
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function index()
@@ -145,7 +146,7 @@ class SeriController extends Controller
 
     public function getFilms()
     {
-      return Film:all();
+      return Film::all();
     }
 
 }
