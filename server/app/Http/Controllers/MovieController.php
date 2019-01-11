@@ -18,7 +18,7 @@ class MovieController extends Controller
 
     public function getMovie($id)
     {
-      return Movie::find($id)->get();
+      return Movie::where(['id' => $id])->first();
     }
 
     public function getMovies()
