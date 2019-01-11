@@ -12,3 +12,4 @@ yarn-error.log
 .env
 client/package-lock.json
 package.lock
+server/vendor/

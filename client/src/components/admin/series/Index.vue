@@ -1,6 +1,6 @@
 <template>
   <div>
-    Series create
+    Series index
   </div>
 </template>
 

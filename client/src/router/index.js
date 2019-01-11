@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home/Index'
-import CreateSerie from '@/components/admin/series/Create'
+import Series from '@/components/Admin/Series/Index'
+import CreateSerie from '@/components/Admin/Series/Create'
 
 Vue.use(Router)
 
@@ -13,7 +14,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/admin/series/create',
+      path: '/admin/series/',
+      name: 'Series',
+      component: Series
+    },
+    {
+      path: '/admin/series/create/',
       name: 'Create series',
       component: CreateSerie
     }

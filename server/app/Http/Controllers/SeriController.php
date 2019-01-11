@@ -143,4 +143,9 @@ class SeriController extends Controller
         return view('seri.admin.edit', compact('seri'));
     }
 
+    public function getFilms()
+    {
+      return Film:all();
+    }
+
 }
