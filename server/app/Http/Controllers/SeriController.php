@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 use \App\Seri;
-use \App\Film;
+use \App\Movie;
 
 class SeriController extends Controller
 {
@@ -142,11 +142,6 @@ class SeriController extends Controller
 
         //Return
         return view('seri.admin.edit', compact('seri'));
-    }
-
-    public function getFilms()
-    {
-      return Film::all();
     }
 
 }
