@@ -20,6 +20,18 @@ use Illuminate\Http\Request;
 //Route::get('/films', 'SeriController@getFilms');
 
 Route::prefix('v1')->group(function() {
-  Route::get('/movies', 'MovieController@getMovies');
-  Route::get('/movies/{id}', 'MovieController@getMovie');
+
+    // Movies
+    Route::prefix('movies')->group(function() {
+        Route::get('/', 'MovieController@getMovies');
+        Route::get('/{id}', 'MovieController@getMovie');
+    });
+
+    // Series
+    Route::prefix('series')->group(function() {
+        Route::get('/', 'SerieController@getSeries');
+        Route::get('/{id}', 'SerieController@getSerie');
+    });
+
+
 });

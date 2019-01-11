@@ -15,6 +15,8 @@ class Seri extends Model
         'additional_information' => 'array',
     ];
 
+    // TODO add difference between series and films
+
     // Get all of the genres for the 'Seri'.
     public function genres()
     {
