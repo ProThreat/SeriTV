@@ -13,12 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-//Route::get('/films', 'SeriController@getFilms');
-
+// Api v1
 Route::prefix('v1')->group(function() {
 
     // Movies
@@ -28,10 +23,10 @@ Route::prefix('v1')->group(function() {
     });
 
     // Series
-    Route::prefix('series')->group(function() {
-        Route::get('/', 'SerieController@getSeries');
-        Route::get('/{id}', 'SerieController@getSerie');
-    });
+    // Route::prefix('series')->group(function() {
+    //     Route::get('/', 'SerieController@getSeries');
+    //     Route::get('/{id}', 'SerieController@getSerie');
+    // });
 
 
 });
