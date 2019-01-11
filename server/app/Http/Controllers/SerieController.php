@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-use \App\Series;
+use \App\Serie;
 
-class SeriesController extends Controller
+class SerieController extends Controller
 {
 
     //Check logged in
@@ -18,12 +18,12 @@ class SeriesController extends Controller
 
     public function getSerie($id)
     {
-      return Series::where(['id' => $id])->first();
+      return Serie::where(['id' => $id])->first();
     }
 
     public function getSeries()
     {
-      return Series::all();
+      return Serie::all();
     }
 
 }
