@@ -20,7 +20,7 @@ export default new Router({
     },
     {
       path: '/admin/series/create/',
-      name: 'Create series',
+      name: 'Create serie',
       component: CreateSerie
     }
   ]

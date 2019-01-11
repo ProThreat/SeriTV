@@ -17,4 +17,6 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/films', 'SeriController@getFilms');
+Route::namespace('v1')->group(function() {
+  Route::get('/films', 'SeriController@getFilms');
+});
