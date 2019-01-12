@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 // Api v1
 Route::prefix('v1')->group(function() {
 
+    // Get types
+    Route::get('genres', 'GenreController@index');
+    Route::get('types', 'TypeController@index');
+
     // Movies
     Route::prefix('movies')->group(function() {
         Route::get('/', 'MovieController@getMovies');
