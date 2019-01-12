@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriStarsTable extends Migration
+class CreateCharactersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateSeriStarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seri_stars', function (Blueprint $table) {
+        Schema::create('characters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seri_id');
-            $table->integer('seri_cast_id');
+            $table->string('name');
+            $table->string('description');
+            $table->string('images');
+            $table->date('birthdate');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateSeriStarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seri_stars');
+        Schema::dropIfExists('characters');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriCrewsTable extends Migration
+class CreateSeriesGenreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSeriCrewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('crews', function (Blueprint $table) {
+        Schema::create('series_genre', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->default(null);
-            $table->string('description', 500)->default(null);
-            $table->string('images', 1000)->default(null);
-            $table->string('seri')->default(null);
-            $table->date('birthdate')->default(null);
+            $table->integer('series_id')->default(null);
+            $table->integer('genre_id')->default(null);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSeriCrewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crews');
+        Schema::dropIfExists('series_genre');
     }
 }

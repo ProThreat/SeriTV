@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriGenresTable extends Migration
+class CreatePeopleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateSeriGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('genre')->default(null);
+            $table->string('name');
+            $table->string('description')->default(null);
+            $table->string('images')->default(null);
+            $table->date('birthdate')->default(null);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateSeriGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('people');
     }
 }
