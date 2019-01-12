@@ -21,6 +21,12 @@ class MovieController extends Controller
       return Movie::where(['id' => $id])->first();
     }
 
+    public function getMoviesByScore($score)
+    {
+        $score = floatval($score);
+        return Movie::where(['imdb_rating' => $score])->get();
+    }
+
     public function getMovies()
     {
       return Movie::all();

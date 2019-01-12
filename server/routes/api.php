@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function() {
     Route::prefix('movies')->group(function() {
         Route::get('/', 'MovieController@getMovies');
         Route::get('/{id}', 'MovieController@getMovie');
+        Route::get('/score/{score}', 'MovieController@getMoviesByScore');
     });
 
     // Series

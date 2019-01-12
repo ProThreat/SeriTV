@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriWritersTable extends Migration
+class CreateMovieCastTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateSeriWritersTable extends Migration
      */
     public function up()
     {
-        Schema::create('seri_writers', function (Blueprint $table) {
+        Schema::create('movie_cast', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seri_id');
-            $table->integer('seri_cast_id');
+            $table->bigInteger('type');
+            $table->integer('people_id');
+            $table->integer('movie_character_id');
+            $table->string('role');
+            $table->integer('movie_id');
         });
     }
 
@@ -27,6 +30,6 @@ class CreateSeriWritersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seri_writers');
+        Schema::dropIfExists('movie_cast');
     }
 }
