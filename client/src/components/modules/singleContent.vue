@@ -10,10 +10,10 @@
       <span v-if="description">{{ description.slice(0, 200) }}...</span>
     </p>
     <p class="card-text">
-      <i class="fab fa-imdb"></i>&nbsp;{{ rating }}
+      <font-awesome-icon size="2x" :icon="['fab', 'imdb']" />&nbsp;{{ rating }}
     </p>
     <p class="card-text">
-      <small>Year: {{ releaseDate }}</small>
+      <small>Year: {{ releaseDate | moment("YYYY")}}</small>
     </p>
   </b-card>
 </template>
@@ -35,4 +35,5 @@ export default {
 .card-movie-description {
   min-height: 120px;
 }
+
 </style>
