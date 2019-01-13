@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="search-wrapper">
-          <input type="text" class="form-control" @change="onInput()" v-model="key" placeholder="Search title.."/>
+          <input type="text" class="form-control" v-on:keyup="onKeyUp()" v-model="key" placeholder="Search title.."/>
       </div>
     <div class="row">
         <div class="col-12 col-sm-3 mt-4" v-for="movie in movies">
@@ -25,6 +25,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import MovieService from '@/services/MovieService'
 
+// wait function for onkeyup delay
+function wait(time) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, time);
+    });
+}
+
 export default {
   data () {
     return {
@@ -38,11 +47,12 @@ export default {
 
   },
     methods: {
-        async onInput() {
+        async onKeyUp(){
+            await wait(800);
             if(this.key === ''){
-                this.movies = (await MovieService.index()).data;
+                this.movies = (await MovieService.index()).data
             }else{
-                this.movies = (await MovieService.search(this.key)).data;
+                this.movies = (await MovieService.search(this.key)).data
             }
         }
     }
