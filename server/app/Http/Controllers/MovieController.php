@@ -32,7 +32,7 @@ class MovieController extends Controller
         return Movie::where('title', 'LIKE', '%'.$title.'%')->get();
     }
 
-    public function getMovies()
+    public function getMovies($index, $amount)
     {
       // Get table and get parameters
       $movie = \DB::table('movies');
