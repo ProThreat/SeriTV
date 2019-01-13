@@ -26,12 +26,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import MovieService from '@/services/MovieService'
 
 // wait function for onkeyup delay
-function wait(time) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, time);
-    });
+function wait (time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
 }
 
 export default {
@@ -49,7 +49,7 @@ export default {
 
   methods: {
     async onKeyUp () {
-        await wait(300);
+      await wait(300)
       if (this.key === '') {
         this.movies = (await MovieService.index()).data
       } else {
