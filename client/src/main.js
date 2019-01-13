@@ -8,6 +8,8 @@ import 'vue-awesome/icons'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VoerroTagsInput from '@voerro/vue-tagsinput'
+import ImgUpload from '@/components/Admin/Series/ImgUpload'
+import CrewBox from '@/components/Admin/Series/CrewBox'
 
 import App from './App'
 import router from './router'
@@ -16,6 +18,8 @@ Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.component('v-icon', Icon)
 Vue.component('tags-input', VoerroTagsInput)
+Vue.component('img-upload', ImgUpload)
+Vue.component('crew-box', CrewBox)
 
 Vue.config.productionTip = false
 
