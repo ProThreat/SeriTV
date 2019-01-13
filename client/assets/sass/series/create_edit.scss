@@ -22,7 +22,7 @@
   .seri-information { position: absolute; margin-top: -150px; left: 0; right: 0; z-index: 2;
 
     // Top information
-    .image { padding-bottom: 120%; background-size: cover; background-repeat: no-repeat; background-position: center center; }
+    .image { padding-bottom: 120%; background-size: cover; background-repeat: no-repeat; background-position: center center; border: 1px dashed; }
     .short-information { height: 0; padding-bottom: 15%;
       .top {
         & > * { overflow: hidden; }

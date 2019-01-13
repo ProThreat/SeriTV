@@ -5,6 +5,6 @@ export default {
     return Api().get('movies')
   },
   search (q) {
-    return Api().get('movies/title/'+q)
+    return Api().get('movies/title/' + q)
   }
 }
