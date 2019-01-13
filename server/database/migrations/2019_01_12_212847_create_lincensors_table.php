@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriesGenreTable extends Migration
+class CreateLincensorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateSeriesGenreTable extends Migration
      */
     public function up()
     {
-        Schema::create('series_genre', function (Blueprint $table) {
+        Schema::create('licensors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('series_id')->nullable();
-            $table->integer('genre_id')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateSeriesGenreTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series_genre');
+        Schema::dropIfExists('lincensors');
     }
 }

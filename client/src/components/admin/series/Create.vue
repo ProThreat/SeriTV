@@ -90,23 +90,16 @@
                       <div><small class="label">*The following fields will not be shown if empty</small></div>
 
                       <div>Rating</div>
-                      <tags-input element-id="tags" :existing-tags="rating" :typeahead="true" :only-existing-tags="true" :add-tags-on-comma="true" :typeahead-max-results=5></tags-input>
+                      <tags-input element-id="tags" :existing-tags="rating" :typeahead="true" :only-existing-tags="true" :add-tags-on-comma="true" :typeahead-max-results="5"></tags-input>
 
                       <div>Producers</div>
-                      <select class="tags blend-style" name="additional_information[producers]" multiple>
-                          <option value="1">TOHO Animation</option>
-                          <option value="2">Shuesiha</option>
-                      </select>
+                      <tags-input element-id="tags" :existing-tags="producers" :typeahead="true" :only-existing-tags="true" :add-tags-on-comma="true" :typeahead-max-results="5"></tags-input>
 
                       <div>Licensors</div>
-                      <select class="tags blend-style" name="additional_information[licensors]" multiple>
-                          <option value="1">Funimation</option>
-                      </select>
+                      <tags-input element-id="tags" :existing-tags="licensors" :typeahead="true" :only-existing-tags="true" :add-tags-on-comma="true" :typeahead-max-results="5"></tags-input>
 
                       <div>Studios</div>
-                      <select class="tags blend-style" name="additional_information[bones]" multiple>
-                          <option value="1">Funimation</option>
-                      </select>
+                      <tags-input element-id="tags" :existing-tags="studios" :typeahead="true" :only-existing-tags="true" :add-tags-on-comma="true" :typeahead-max-results="5"></tags-input>
 
                       <!--
                         To add: episodes, aired (date to date)?, duration, rating, producers & licensors & studios?
@@ -187,6 +180,7 @@
 <script>
 import TypeService from '@/services/TypeService'
 import GenreService from '@/services/GenreService'
+import CompanyService from '@/services/CompanyService'
 
 export default {
 
@@ -214,7 +208,10 @@ export default {
 
   async mounted () {
     this.types = (await TypeService.index()).data,
-    this.genres = (await GenreService.index()).data
+    this.genres = (await GenreService.index()).data,
+    this.producers = (await CompanyService.producers()).data,
+    this.licensors = (await CompanyService.licensors()).data,
+    this.studios = (await CompanyService.studios()).data
   },
 
   methods: {

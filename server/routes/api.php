@@ -20,6 +20,11 @@ Route::prefix('v1')->group(function() {
     Route::get('genres', 'GenreController@index');
     Route::get('types', 'TypeController@index');
 
+    // Companies
+    Route::get('producers', 'CompanyController@getProducers');
+    Route::get('licensors', 'CompanyController@getLicensors');
+    Route::get('studios', 'CompanyController@getStudios');
+
     // Movies
     Route::prefix('movies')->group(function() {
         Route::get('/', 'MovieController@getMovies');

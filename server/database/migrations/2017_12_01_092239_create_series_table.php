@@ -15,18 +15,18 @@ class CreateSeriesTable extends Migration
     {
         Schema::create('series', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('image', 255)->default(null);
-            $table->string('images', 1000)->default(null);
+            $table->string('image', 255)->nullable();
+            $table->string('images', 1000)->nullable();
             $table->string('name');
-            $table->integer('type')->default(null);
-            $table->string('short_description')->default(null);
-            $table->string('description')->default(null);
-            $table->date('release_date')->default(null);
-            $table->integer('seasons')->default(null);
-            $table->integer('episodes')->default(null);
-            $table->string('aired')->default(null);
-            $table->string('duration')->default(null);
-            $table->string('additional_information')->default(null);
+            $table->integer('type')->nullable();
+            $table->string('short_description')->nullable();
+            $table->string('description')->nullable();
+            $table->date('release_date')->nullable();
+            $table->integer('seasons')->nullable();
+            $table->integer('episodes')->nullable();
+            $table->string('aired')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('additional_information')->nullable();
             $table->timestamps();
         });
     }
