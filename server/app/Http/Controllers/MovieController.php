@@ -32,9 +32,10 @@ class MovieController extends Controller
         return Movie::where('title', 'LIKE', '%'.$title.'%')->get();
     }
 
-    public function getMovies()
+    public function getMovies($index, $amount)
     {
-      return Movie::all();
+        $i = $index*$amount;
+      return Movie::skip($i)->take($amount)->get();
     }
 
 }
