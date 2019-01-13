@@ -7,7 +7,7 @@
               <div class="overlay"></div>
               <!-- Add dropzone -->
               <div class="slider owl-carousel">
-                <div class="slide" style="background-image: url('/assets/img/cat.jpg')"></div>
+                <div class="slide" v-bind:style="{ backgroundImage: 'url('+ './assets/img/cat.jpg' +')' }"></div>
               </div>
           </div>
 
@@ -15,7 +15,10 @@
 
               <div class="row">
                   <div class="col-5 col-md-4 col-lg-3">
-                      <div class="image" style="background-image:url('/assets/img/cat.jpg')"></div>
+                      <div class="image" style="background-image: url('http://localhost:3000/img/placeholder.jpg')"></div>
+                      <a class="btn" @click="toggleShow">set avatar</a>
+                      <my-upload field="img" @crop-success="cropSuccess" :width="300" :height="300" url="/api/v1/uploadImage" :params="params" :headers="headers" :langType="en"></my-upload>
+                      <img :src="imgDataUrl">
                   </div>
 
                   <div class="short-information col-7 col-md-8 col-lg-9">
@@ -42,7 +45,7 @@
                           <span>Name</span>
                           <ul>
                               <li><input class="name_input blend-style" name="name[]" v-model="title" placeholder="Title here..."></li>
-                              <li v-for="input in inputsName">
+                              <li :key="input.id" v-for="input in inputsName">
                                 <input :id="input.id" class="name_input blend-style" name="name[]" v-model="input.value" placeholder="Title here...">
                               </li>
                           </ul>
@@ -178,10 +181,15 @@
 </template>
 
 <script>
+// Ajax
 import TypeService from '@/services/TypeService'
 import GenreService from '@/services/GenreService'
 import CompanyService from '@/services/CompanyService'
 
+// Image upload
+import myUpload from 'vue-image-crop-upload'
+
+//
 export default {
 
   data () {
@@ -202,16 +210,21 @@ export default {
         6: '18+',
         7: '15+',
         8: '14+'
-      }
+      },
+      imgDataUrl: ''
     }
   },
 
   async mounted () {
-    this.types = (await TypeService.index()).data,
-    this.genres = (await GenreService.index()).data,
-    this.producers = (await CompanyService.producers()).data,
-    this.licensors = (await CompanyService.licensors()).data,
+    this.types = (await TypeService.index()).data
+    this.genres = (await GenreService.index()).data
+    this.producers = (await CompanyService.producers()).data
+    this.licensors = (await CompanyService.licensors()).data
     this.studios = (await CompanyService.studios()).data
+  },
+
+  components: {
+    'my-upload': myUpload
   },
 
   methods: {
@@ -220,6 +233,11 @@ export default {
       this.inputsName.push({
         value: ''
       })
+    },
+
+    cropSuccess (imgDataUrl, field) {
+      console.log('-------- crop success --------')
+      this.imgDataUrl = imgDataUrl
     }
 
   }

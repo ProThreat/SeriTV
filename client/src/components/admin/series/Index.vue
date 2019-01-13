@@ -4,7 +4,7 @@
           <input type="text" class="form-control" @change="onInput()" v-model="key" placeholder="Search title.."/>
       </div>
     <div class="row">
-        <div class="col-12 col-sm-3 mt-4" v-for="movie in movies">
+        <div class="col-12 col-sm-3 mt-4" :key="movie.id" v-for="movie in movies">
           <div class="card">
             <img class="card-img-top" alt="Movie poster" :src="movie.image">
             <div class="card-body">
@@ -28,26 +28,26 @@ import MovieService from '@/services/MovieService'
 export default {
   data () {
     return {
-        latestMovie: {},
-        movies: {},
-        key: ''
+      latestMovie: {},
+      movies: {},
+      key: ''
     }
   },
+
   async mounted () {
-      this.movies = (await MovieService.index()).data;
-
+    this.movies = (await MovieService.index()).data
   },
-    methods: {
-        async onInput() {
-            if(this.key === ''){
-                this.movies = (await MovieService.index()).data;
-            }else{
-                this.movies = (await MovieService.search(this.key)).data;
-            }
-        }
-    }
-}
 
+  methods: {
+    async onInput () {
+      if (this.key === '') {
+        this.movies = (await MovieService.index()).data
+      } else {
+        this.movies = (await MovieService.search(this.key)).data
+      }
+    }
+  }
+}
 
 </script>
 
