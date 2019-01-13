@@ -49,9 +49,7 @@
                                 <input :id="input.id" class="name_input blend-style" name="name[]" v-model="input.value" placeholder="Title here...">
                               </li>
                           </ul>
-                          <button class="add_input" @click="addInput" type="button">
-                              <v-icon name="plus"></v-icon>
-                          </button>
+                          <button class="add_input" @click="addInput" type="button">+</button>
                       </div>
 
                       <div class="seriBar type">
@@ -225,7 +223,7 @@ export default {
         7: '15+',
         8: '14+'
       },
-      
+
       sliderOptions: {
         url: 'http://localhost:3000/api/v1/uploadImage',
         resizeWidth: 1920,
