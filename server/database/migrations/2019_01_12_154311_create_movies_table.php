@@ -15,17 +15,16 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('image')->default(null);
-            $table->string('images')->default(null);
-            $table->string('name');
-            $table->integer('type')->default(null);
-            $table->string('short_description')->default(null);
-            $table->string('description')->default(null);
-            $table->date('release_date')->default(null);
-            $table->string('duration')->default(null);
-            $table->string('duration')->default(null);
-            $table->string('additional_information')->default(null);
-            $table->decimal('imdb_rating', 8,1)->default(null);
+            $table->string('image')->nullable();
+            $table->string('images')->nullable();
+            $table->string('title');
+            $table->integer('type')->nullable();
+            $table->string('short_description')->nullable();
+            $table->text('description')->nullable();
+            $table->date('release_date')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('additional_information')->nullable();
+            $table->decimal('imdb_rating', 8,1)->nullable();
             $table->timestamps();
         });
     }

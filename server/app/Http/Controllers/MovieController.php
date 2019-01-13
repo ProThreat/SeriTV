@@ -27,6 +27,11 @@ class MovieController extends Controller
         return Movie::where(['imdb_rating' => $score])->get();
     }
 
+    public function getMoviesByTitle($title)
+    {
+        return Movie::where('title', 'LIKE', '%'.$title.'%')->get();
+    }
+
     public function getMovies()
     {
       return Movie::all();

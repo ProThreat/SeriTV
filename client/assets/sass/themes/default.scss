@@ -1,0 +1,19 @@
+// Default theme styling
+
+// Colors:
+  // Primary
+  $primaryColor: #22a7f0;
+  $primaryBackgroundColor: #dadfe1;
+  $primaryTextColor: #ffffff;
+  $primaryBackgroundHoverColor: #19b5fe;
+
+  // Secondary
+  $secondaryColor: #22a7f0;
+  $secondaryTextColor: white;
+
+  // Editable fields
+  $editFieldBgColor: #eaeaea;
+
+// Transitions
+  a { transition: 0.1s ease-in-out; }
+  .btn { transition: 0.2s ease-in-out; }

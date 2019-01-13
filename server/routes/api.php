@@ -16,11 +16,21 @@ use Illuminate\Http\Request;
 // Api v1
 Route::prefix('v1')->group(function() {
 
+    // Get types
+    Route::get('genres', 'GenreController@index');
+    Route::get('types', 'TypeController@index');
+
+    // Companies
+    Route::get('producers', 'CompanyController@getProducers');
+    Route::get('licensors', 'CompanyController@getLicensors');
+    Route::get('studios', 'CompanyController@getStudios');
+
     // Movies
     Route::prefix('movies')->group(function() {
         Route::get('/', 'MovieController@getMovies');
         Route::get('/{id}', 'MovieController@getMovie');
         Route::get('/score/{score}', 'MovieController@getMoviesByScore');
+        Route::get('/title/{title}', 'MovieController@getMoviesByTitle');
     });
 
     // Series
