@@ -9,9 +9,11 @@
       >
         <single-content
           :title="movie.title"
-          :shortDescription="movie.short_description"
-          :coverImage="movie.image"
-          :year="movie.year"
+          :description="movie.description"
+          :image="movie.image"
+          :releaseDate="movie.release_date"
+          :rating="movie.imdb_rating"
+          class="h-100"
         />
       </b-col>
     </b-row>
@@ -30,7 +32,7 @@ export default {
     }
   },
   async mounted () {
-    this.movies = (await MovieService.index()).data
+    this.movies = (await MovieService.index()).data.slice(0, 3)
   },
   components: {
     MovieService,

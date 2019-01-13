@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons'
 import axios from 'axios'
@@ -16,6 +20,10 @@ Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.component('v-icon', Icon)
 // Vue.component('tags-input', VoerroTagsInput)
+
+library.add(faCoffee)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
