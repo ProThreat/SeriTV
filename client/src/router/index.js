@@ -2,9 +2,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// Vue Plugins
-import Tabs from 'vue-tabs-component'
-
 // Pages
 import Home from '@/components/Home/Index'
 import Series from '@/components/Admin/Series/Index'
@@ -14,7 +11,6 @@ import CreateMovies from '@/components/Admin/Movies/Create'
 
 // Initialize plugins
 Vue.use(Router)
-Vue.use(Tabs)
 
 export default new Router({
   mode: 'history',

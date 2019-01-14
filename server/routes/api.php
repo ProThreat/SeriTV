@@ -19,6 +19,7 @@ Route::prefix('v1')->group(function() {
     // Get types
     Route::get('genres', 'GenreController@index');
     Route::get('types', 'TypeController@index');
+    Route::get('people', 'PeopleController@index');
 
     // Companies
     Route::get('producers', 'CompanyController@getProducers');
@@ -41,5 +42,7 @@ Route::prefix('v1')->group(function() {
         Route::get('/title/{title}', 'SerieController@getSerieByTitle');
     });
 
+    // Image upload
+    Route::post('/uploadImage', 'SerieController@uploadImage');
 
 });

@@ -1,4 +1,5 @@
 <?php
+<?php
 
 use Illuminate\Database\Seeder;
 
@@ -13,9 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(TypeSeeder::class);
         $this->call(GenreSeeder::class);
+        $this->call(PeopleSeeder::class);
         $this->call(ProducerSeeder::class);
         $this->call(LicensorSeeder::class);
         $this->call(StudioSeeder::class);
         $this->call(MovieSeeder::class);
+        $this->call(SerieSeeder::class);
     }
 }

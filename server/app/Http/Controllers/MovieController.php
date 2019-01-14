@@ -34,8 +34,16 @@ class MovieController extends Controller
 
     public function getMovies($index, $amount)
     {
-        $i = $index*$amount;
-        return Movie::skip($i)->take($amount)->get();
+      // Get table and get parameters
+      $movie = \DB::table('movies');
+      $getters = Input::get();
+
+      // Add offset/limit
+      $movie->offset( (@$getters['index'] * @$getters['pageSize']) ?: 0);
+      $movie->limit(@$getters['pageSize'] ?: 15);
+
+      // Return items
+      return $movie->get();
     }
 
 }
