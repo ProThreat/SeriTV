@@ -35,7 +35,7 @@ class MovieController extends Controller
     public function getMovies($index, $amount)
     {
         $i = $index*$amount;
-      return Movie::skip($i)->take($amount)->get();
+        return Movie::skip($i)->take($amount)->get();
     }
 
 }
