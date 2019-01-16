@@ -36,8 +36,10 @@ Route::prefix('v1')->group(function() {
 
     // Series
     Route::prefix('series')->group(function() {
-        Route::get('/', 'SerieController@getSeries');
+        Route::get('/{index}&{amount}', 'SerieController@getSeries');
         Route::get('/{id}', 'SerieController@getSerie');
+        Route::get('/score/{score}', 'SerieController@getSerieByScore');
+        Route::get('/title/{title}', 'SerieController@getSerieByTitle');
     });
 
     // Image upload
