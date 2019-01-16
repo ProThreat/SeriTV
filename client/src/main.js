@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VoerroTagsInput from '@voerro/vue-tagsinput'
-import CrewBox from '@/components/Admin/Series/CrewBox'
 
 import router from './router'
 
@@ -22,7 +21,6 @@ Vue.use(require('vue-moment'))
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('tags-input', VoerroTagsInput)
-Vue.component('crew-box', CrewBox)
 
 library.add(faCoffee)
 library.add(fab)

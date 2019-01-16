@@ -169,13 +169,13 @@
           <!-- Modals -->
           <b-modal id="modalCast" ref="modal" title="Add cast">
             <div class="crew-group">
-              <crew-box :data="{ person }" :key="{ person }" v-for="person in cast" />
+              <crew-box v-for="person in cast" :key="person.id" :data="{ person }" />
             </div>
           </b-modal>
 
           <b-modal id="modalCrew" ref="modal" title="Add crew">
             <div class="crew-group">
-              <crew-box :data="{ person }" :key="{ person }" v-for="person in crew" />
+              <crew-box v-for="person in crew" :key="person.id" :data="{ person }" />
             </div>
           </b-modal>
 
@@ -196,10 +196,14 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 //
+import crewBox from '@/components/Admin/Series/CrewBox'
+
+//
 export default {
 
   components: {
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    crewBox
   },
 
   data () {
@@ -207,8 +211,8 @@ export default {
       title: '',
       types: null,
       genres: null,
-      cast: null,
-      crew: null,
+      cast: [],
+      crew: [],
       producers: null,
       licensors: null,
       studios: null,

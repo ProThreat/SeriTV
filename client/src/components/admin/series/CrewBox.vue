@@ -1,7 +1,7 @@
 <template>
 
     <div class="crew-box" :class="{ 'selected': toggled }" @click="toggleItem">
-      <div class="overlay"><v-icon name="plus"></v-icon></div>
+      <div class="overlay">+</div>
       <div class="image" style="background-image: url('http://localhost:3000/img/placeholder.jpg')"></div>
       <div class="name">{{ data.person.name }}</div>
     </div>
