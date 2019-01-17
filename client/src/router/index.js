@@ -4,6 +4,7 @@ import Router from 'vue-router'
 
 // Pages
 import Home from '@/components/Home/Index'
+import Login from '@/components/Admin/Login'
 import Series from '@/components/Admin/Series/Index'
 import CreateSerie from '@/components/Admin/Series/Create'
 import Movies from '@/components/Admin/Movies/Index'
@@ -21,6 +22,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
       path: '/admin/series/',
       name: 'Series',
       component: Series
@@ -33,7 +39,7 @@ export default new Router({
     {
       path: '/admin/movies/',
       name: 'Movies',
-      component: Series
+      component: Movies
     },
     {
       path: '/admin/movies/create/',
