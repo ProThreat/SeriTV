@@ -11,7 +11,7 @@
 |
 */
 
-
+// TODO delete if not used as reference anymore
 // Route::get('/', 'HomeController@index');
 //
 // //Login routes

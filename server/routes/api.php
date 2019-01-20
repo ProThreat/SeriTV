@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+// Login routes
+Route::post('/register', 'Auth\LoginController@register');
+Route::post('/login', 'Auth\LoginController@authenticate');
+
 // Api v1
 Route::prefix('v1')->group(function() {
 

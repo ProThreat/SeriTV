@@ -4,7 +4,8 @@ import Router from 'vue-router'
 
 // Pages
 import Home from '@/components/Home/Index'
-import Login from '@/components/Admin/Login'
+import Register from '@/components/Global/Register'
+import Login from '@/components/Global/Login'
 import Series from '@/components/Admin/Series/Index'
 import CreateSerie from '@/components/Admin/Series/Create'
 import Movies from '@/components/Admin/Movies/Index'
@@ -20,6 +21,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/login',
