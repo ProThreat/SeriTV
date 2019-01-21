@@ -63,12 +63,17 @@ export default {
         name: this.loginUsername,
         email: this.loginEmail,
         password: this.loginPassword,
-        password_confirmed: this.loginPasswordRepeat
+        password_confirmation: this.loginPasswordRepeat
       })
         .then(response => {
-          
-          // Redirect user
-          // this.$router.push('/')
+          if(response.data.success)
+          {
+            // Save user in localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+
+            // Redirect user
+            this.$router.push('/')
+          }
         })
         .catch(error => {
           console.error('test', error.response.data.errors)

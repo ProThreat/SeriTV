@@ -43,15 +43,16 @@ class UserStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.min' => 'Name has to be at least longer than 3 characters',
-            'name.max' => 'Name can\'t be longer than 255 characters',
+            'name.min' => 'Name has to be at least longer than :min characters',
+            'name.max' => 'Name can\'t be longer than :max characters',
             'name.unique' => 'Name is already taken',
             'name.required' => 'Name is required',
-            'name.unique' => 'Email is already in use',
-            'email.validation' => 'Enter a valid email address',
+            'name.unique' => 'Name is already in use',
+            'email' => 'Enter a valid email address',
+            'email.unique' => 'Email is already in use',
             'email.required' => 'Email is required',
-            'password.min' => 'Password has to be at least longer than 3 characters',
-            'password.max' => 'Password can\'t be longer than 255 characters',
+            'password.min' => 'Password has to be at least longer than :min characters',
+            'password.max' => 'Password can\'t be longer than :max characters',
             'password.required' => 'Password is required',
             'password.confirmed' => 'The passwords don\'t match'
         ];

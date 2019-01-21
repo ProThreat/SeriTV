@@ -62,24 +62,11 @@ class LoginController extends Controller
         // Get user name
         $username = $request->name;
 
-        // Validate request
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|unique:users,name|min:3|max:255',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required|min:3|confirmed|max:255'
-        // ]);
-
-        dd($request);
-
-        // Return fail message
-        if ($validator->fails())
-            return response()->json($validator->messages(), 200);
-
         // Create user
-        User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->password)]);
+        $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->password)]);
 
         // Return response
-        return response()->json(['success' => true, 'message' => 'User has been registered']);;
+        return response()->json(['success' => true, 'message' => 'User has been registered', 'user' => $user]);;
     }
 
     /**
