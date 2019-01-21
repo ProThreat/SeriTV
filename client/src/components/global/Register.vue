@@ -66,8 +66,7 @@ export default {
         password_confirmation: this.loginPasswordRepeat
       })
         .then(response => {
-          if(response.data.success)
-          {
+          if (response.data.success) {
             // Save user in localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user))
 
