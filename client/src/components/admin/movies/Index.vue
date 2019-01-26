@@ -12,7 +12,7 @@
               <h5 class="card-title">{{movie.title}}</h5>
               <p class="card-text" v-if="movie.description.length>0">{{movie.description.substring(0,128)}}...</p>
               <p class="card-text" v-else>...</p>
-              <a href="#" class="btn btn-primary">More info</a>
+              <a href="#" @click="onClick(movie.id)" class="btn btn-primary">Mark as watched</a>
             </div>
           </div>
         </div>
@@ -56,6 +56,13 @@ export default {
       } else {
         this.movies = (await MovieService.search(this.key)).data
       }
+    },
+    onClick (movieId) {
+      let user = JSON.parse(localStorage.getItem('user'))
+      this.$http.post('http://localhost:3000/api/v1/watched_movies/', {
+        user_id: user['id'],
+        movie_id: movieId
+      })
     }
   }
 }

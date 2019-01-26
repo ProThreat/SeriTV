@@ -38,6 +38,11 @@ Route::prefix('v1')->group(function() {
         Route::get('/title/{title}', 'MovieController@getMoviesByTitle');
     });
 
+    // Watched movies
+    Route::prefix('watched_movies')->group(function() {
+        Route::post('/', 'WatchedMoviesController@addWatched');
+    });
+
     // Series
     Route::prefix('series')->group(function() {
         Route::get('/{index}&{amount}', 'SerieController@getSeries');
