@@ -1,8 +1,14 @@
 // Default theme styling
 
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+$Roboto: 'Roboto', sans-serif;
+
 // Colors:
   // Primary
   $primaryColor: #22a7f0;
+  $primaryLightenedColor: hsla(201, 87%, 54%, 0.253);
   $primaryBackgroundColor: #dadfe1;
   $primaryTextColor: #ffffff;
   $primaryBackgroundHoverColor: #19b5fe;

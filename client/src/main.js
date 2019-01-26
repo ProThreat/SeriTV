@@ -5,8 +5,9 @@ import App from './App'
 import BootstrapVue from 'bootstrap-vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import axios from 'axios'
@@ -22,8 +23,9 @@ Vue.use(require('vue-moment'))
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('tags-input', VoerroTagsInput)
 
-library.add(faCoffee)
 library.add(fab)
+library.add(far)
+library.add(fas)
 
 Vue.config.productionTip = false
 

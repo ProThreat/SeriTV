@@ -75,7 +75,6 @@ export default {
           }
         })
         .catch(error => {
-          console.error('test', error.response.data.errors)
           this.validationErrors = error.response.data.errors
         })
     }
@@ -88,7 +87,7 @@ export default {
 <style lang="scss" scoped>
 
 .loginPage { min-height: 100vh; width: 100%; display: flex;
-    .background { position: relative; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1;
+    .background { position: relative; width: 100%; min-height: inherit; background-size: cover; background-position: center; z-index: 1;
         .container { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         &:before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); z-index: -1; }
         .loginCard { background: white; border-radius: 3px; padding: 30px 50px; min-width: 450px; margin: 30px 0;

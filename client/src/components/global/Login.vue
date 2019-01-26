@@ -8,7 +8,12 @@
                     <h1>User login</h1>
                     <form method="post" @submit="create">
                         <label><input name="loginUsername" class="form-control" placeholder="Username or Email" v-model="loginUsername"></label>
-                        <label><input name="loginPassword" class="form-control" type="password" placeholder="Password" v-model="loginPassword"></label>
+                        <label>
+                            <input name="loginPassword" class="form-control" type="password" placeholder="Password" v-model="loginPassword">
+                            <div class="errors" v-if="validationErrors">
+                                <b-alert variant="danger" dismissible show>{{ validationErrors.message }}</b-alert>
+                            </div>
+                        </label>
                         <button class="btn" type="submit">Login</button>
                     </form>
                 </div>
@@ -27,7 +32,8 @@ export default {
       logoImage: require('@/assets/img/logo-test.png'),
       bgImage: require('@/assets/img/camcorder.jpg'),
       loginUsername: null,
-      loginPassword: null
+      loginPassword: null,
+      validationErrors: null
     }
   },
 
@@ -45,10 +51,9 @@ export default {
 
             // Redirect user
             this.$router.push('/')
+          } else {
+            this.validationErrors = response.data
           }
-        })
-        .catch(function (error) {
-          console.error(error.response)
         })
     }
   }
@@ -65,8 +70,8 @@ export default {
         &:before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); z-index: -1; }
         .loginCard { background: white; border-radius: 3px; padding: 30px 50px; min-width: 450px; margin: 30px 0;
             h1 { color: #22a7f0; text-transform: uppercase; text-align: center; font-weight: bold; margin-bottom: 20px; }
-            label { display: block;
-                input { background-color: #e5e8ed; border: 0px solid; box-shadow: 0 2px 3px rgba(0,0,0,0.10); max-width: 75%; margin: 0 auto 15px; }
+            label { display: block; max-width: 75%; margin: 0 auto 15px;
+                input { background-color: #e5e8ed; border: 0px solid; box-shadow: 0 2px 3px rgba(0,0,0,0.10); margin-bottom: 15px; }
             }
             button { display: block; background-color: none; margin: 15px auto 0 auto; text-align: center; }
         }

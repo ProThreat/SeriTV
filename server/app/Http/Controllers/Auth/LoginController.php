@@ -17,6 +17,7 @@ use App\Http\Requests\UserStoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -59,9 +60,6 @@ class LoginController extends Controller
      */
     public function register(UserStoreRequest $request)
     {
-        // Get user name
-        $username = $request->name;
-
         // Create user
         $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->password)]);
 
@@ -92,6 +90,6 @@ class LoginController extends Controller
             return response()->json(['success' => true, 'message' => 'User credentials match', 'user' => $user]);
 
         // Return response
-        return response()->json(['success' => false, 'message' => 'User credentials do not match']);;
+        return response()->json(['success' => false, 'message' => 'User credentials do not match']);
     }
 }
