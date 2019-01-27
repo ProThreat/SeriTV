@@ -1,8 +1,33 @@
 // TODO (change to user theme:) add default styling template
 @import './../themes/default.scss';
 
-/* Movies / Series styling */
-.filters { position: fixed; top: 0; left: -100%; bottom: 0; width: 385px; max-width: 100%; background-color: white; padding: 15px; transition: left 0.7s ease-in-out; overflow-y: scroll; z-index: 1;
+// Filter topbar styling
+.topBar { display: flex;
+  .buttons { margin-left: auto; margin-right: 15px;
+    .btn-filter { border: 1px solid rgba(128, 128, 128, 0.4); color:rgb(128, 128, 128); border-radius: 5px; }
+  }
+  // Navbar
+  nav, .navbar { position: absolute; width: 100%; background: transparent !important;
+    .navbar-nav {
+      .nav-link { color: white !important;
+      }
+    }
+  }
+
+  // Tabs
+  .nav-tabs { margin: 1px -15px 30px; padding: 0 15px; border-bottom: 0 solid rgba(0,0,0,0.05);
+    .nav-item {
+      .nav-link { border: none; text-transform: uppercase; color: black; font-size: 18px;
+        &.active { position: relative; color: $primaryColor; background: transparent;
+          &:before { content: ''; position: absolute; left: 15%; right: 15%; bottom: -1px; border-bottom: 2px solid $primaryColor; }
+        }
+      }
+    }
+  }
+}
+
+/* Movies / Series filter styling */
+.filters { position: fixed; top: 0; left: -100%; bottom: 0; width: 385px; max-width: 100%; background-color: $filterBackgroundColor; padding: 15px; transition: left 0.4s ease-in-out; overflow-y: scroll; z-index: 1;
   &.show { left: 0; }
 
   // Head
@@ -16,9 +41,20 @@
   h5 { color: $primarySelectedColor; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 1px solid $primarySelectedColor; font-family: $Roboto; font-size: 17px; 
     &:not(:nth-of-type(1)) { margin-top: 30px; }
   }
+  .ccChecker { position: relative; padding: 0 10px 0 20px; cursor: pointer; flex-basis: 50%; max-width: 50%; word-break: break-all;
+    input { position: absolute; opacity: 0;  cursor: pointer; height: 0; width: 0;
+      &:checked ~ .checkmark { background-color: $primaryLightenedColor; border-color: $primaryColor;
+        &:after { display: block; }
+      }
+    }
+    .checkmark { position: absolute; top: 5px; left: 0; height: 15px; width: 15px; border: 1px solid #a4a4a4; border-radius: 3px; transition: 0.2s ease-in-out;
+      // &:after { content: '';  position: absolute; display: none; left: 9px; top: 5px; width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; -webkit-transform: rotate(45deg); -ms-transform: scale(1.5) rotate(45deg); transform: scale(1.5) rotate(45deg); margin-left: 1px; }
+    }
+    &:hover ~ .checkmark { background-color: #ccc; }
+  }
 
   // Score slider
-  .score { width: 100%;
+  .score, .seasons, .episodes { width: 100%;
     .vue-slider-component {
       .vue-slider { background-color: $editFieldBgColor; }
       .vue-tooltip { background-color: $primaryColor; }
@@ -27,25 +63,40 @@
     }
   }
 
+  .format {
+    .ccChecker { display: block; }
+  }
+
   // Search bar
-  .search-wrapper { flex: 0 0 100%; margin-top: 15px;
-    .search { width: 100%; background: rgba(0, 0, 0, 0.05); border: none; border-radius: 0; border-bottom: 2px solid rgba(0, 0, 0, 0.05); outline: none;
-      &:focus { border-bottom: 2px solid #e1cd86; }
+  .search-wrapper { flex: 0 0 100%; display: flex; align-items: center; margin-top: 15px;
+    svg { color: $primaryBackgroundColor; }
+    .search { width: 100%; background: transparent; border: none; border-radius: 0; outline: none; 
+      &::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder { color: $primaryBackgroundColor; opacity: 1; }
     }
   }
 
-  .genre { display: flex; flex-wrap: wrap; padding: 15px 0;
-    // Custom Checkbox
-    .ccChecker { position: relative; padding: 0 10px 0 20px; cursor: pointer; flex-basis: 33.33%; max-width: 33.33%; word-break: break-all;
-      input { position: absolute; opacity: 0;  cursor: pointer; height: 0; width: 0;
-        &:checked ~ .checkmark { background-color: #2196F3; border-color: #2196F3;
-          &:after { display: block; }
-        }
-      }
-      .checkmark { position: absolute; top: 5px; left: 0; height: 15px; width: 15px; border: 1px solid #a4a4a4; border-radius: 50px; transition: 0.2s ease-in-out;
-        // &:after { content: '';  position: absolute; display: none; left: 9px; top: 5px; width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; -webkit-transform: rotate(45deg); -ms-transform: scale(1.5) rotate(45deg); transform: scale(1.5) rotate(45deg); margin-left: 1px; }
-      }
-      &:hover ~ .checkmark { background-color: #ccc; }
+  // Has more button
+  .hasMore {
+    button { margin: 0 15px; color: $primarySelectedColor; 
+      > * { pointer-events: none; }
     }
+    .labels { display: flex; flex-wrap: wrap; position: relative; padding: 0 15px 0 30px; max-height: 6em; overflow: hidden; 
+      &.active { max-height: none; }
+    }
+  }
+
+  // Types
+  .types {
+    .ccChecker { display: block; }
+  }
+
+  // Genres
+  .genre { padding-bottom: 30px;
+    .search-wrapper { margin: 5px 0 15px 0; }
+  }
+
+  // Studios 
+  .studios {
+
   }
 }

@@ -15,8 +15,8 @@ class CreateSeriesGenreTable extends Migration
     {
         Schema::create('series_genre', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('series_id')->nullable();
-            $table->integer('genre_id')->nullable();
+            $table->integer('season_id');
+            $table->integer('genre_id');
             $table->timestamps();
         });
     }

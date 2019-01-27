@@ -17,9 +17,14 @@ class GenreController extends Controller
     {
         // Give values like id => value
         $genres = [];
+
+        // Loop genres
         foreach(Genre::orderBy('genre')->get() as $genre)
           $genres[$genre->id] = $genre->genre;
 
+        // Sort array
+        sort($genres);
+          
         // Return values
         return json_encode($genres);
     }

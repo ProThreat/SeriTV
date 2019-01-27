@@ -18,14 +18,8 @@ class CreateSeriesTable extends Migration
             $table->string('image', 255)->nullable();
             $table->string('images', 1000)->nullable();
             $table->string('name');
-            $table->integer('type')->nullable();
             $table->string('short_description')->nullable();
             $table->string('description')->nullable();
-            $table->date('release_date')->nullable();
-            $table->integer('seasons')->nullable();
-            $table->integer('episodes')->nullable();
-            $table->string('aired')->nullable();
-            $table->string('duration')->nullable();
             $table->string('additional_information')->nullable();
             $table->timestamps();
         });
