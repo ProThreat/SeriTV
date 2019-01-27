@@ -13,12 +13,12 @@ class CreateMoviesReviewTable extends Migration
      */
     public function up()
     {
-        Schema::create('movies_review', function (Blueprint $table) {
+        Schema::create('movie_reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('movie_id');
             $table->decimal('rating', 8,1);
-            $table->text('review');
+            $table->text('review')->nullable();
             $table->timestamps();
         });
     }

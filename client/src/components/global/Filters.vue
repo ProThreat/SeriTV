@@ -27,13 +27,13 @@
 
       <h5 v-if="filter.includes('score')">Score</h5>
       <div class="score" v-if="filter.includes('score')">
-        <vue-slider ref="slider" v-if="scoreOptions" v-model="score" v-bind="scoreOptions"></vue-slider>
+        <vue-slider ref="slider" v-if="scoreOptions" v-model="allFilters.score" v-bind="scoreOptions" @change="getItemsByFilters"></vue-slider>
       </div>
 
       <h5 v-if="filter.includes('format')">View</h5>
       <div class="format" v-if="filter.includes('format')">
         <label class="ccChecker" v-for="format in formats" :key="format" @change="filterToParent('formats', format)">{{ format }}
-          <input type="radio" :value="format" v-model="formatPicked">
+          <input type="radio" :value="format" v-model="formatPicked" @change="getItemsByFilters">
           <span class="checkmark"></span>
         </label>
       </div>
@@ -41,14 +41,14 @@
       <h5 v-if="filter.includes('search')">Search</h5>
       <div class="search-wrapper" v-if="filter.includes('search')">
         <font-awesome-icon size="1x" :icon="['fas', 'search']" />
-        <input type="text" class="form-control search" v-on:keyup="onKeyUp()" v-model="key" placeholder="Search title.."/>
+        <input type="text" class="form-control search" v-on:keyup="onKeyUp()" v-model="allFilters.title" placeholder="Search title.."/>
       </div>
 
       <h5 v-if="filter.includes('type')">Type</h5>
       <div class="types" v-if="filter.includes('type')">
         <div ref="labels" class="labels">
           <label class="ccChecker" v-for="item in types" :key="item.id">{{ item.type }}
-            <input type="checkbox" name="types[]">
+            <input type="radio" name="type" :value="item.id" v-model="allFilters.type" @change="getItemsByFilters">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -62,7 +62,7 @@
         </div>
         <div ref="labels" class="labels">
           <label class="ccChecker" v-for="genre in genres" :key="genre">{{ genre }}
-            <input type="checkbox" name="genres[]">
+            <input type="checkbox" :value="genre" v-model="allFilters.genre" @change="getItemsByFilters">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -73,7 +73,7 @@
       <div class="studios" v-if="filter.includes('studios')">
         <div ref="labels" class="labels">
           <label class="ccChecker" v-for="item in studios" :key="item">{{ item }}
-            <input type="checkbox" name="studios[]">
+            <input type="checkbox" :value="item" v-model="allFilters.studios" @change="getItemsByFilters">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -87,7 +87,7 @@
         </div>
         <div ref="labels" class="labels">
           <label class="ccChecker" v-for="item in dates" :key="item">{{ item }}
-            <input type="checkbox" name="genres[]">
+            <input type="checkbox" :value="item" v-model="allFilters.seasonal_dates" @change="getItemsByFilters">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -96,12 +96,12 @@
 
       <h5 v-if="filter.includes('seasons')">Seasons</h5>
       <div class="seasons" v-if="filter.includes('seasons')">
-        <vue-slider ref="seasonSlider" v-model="seasons" v-bind="seasonOptions"></vue-slider>
+        <vue-slider ref="seasonSlider" v-model="allFilters.seasons" v-bind="seasonOptions" @change="getItemsByFilters"></vue-slider>
       </div>
 
       <h5 v-if="filter.includes('episodes')">Episodes</h5>
       <div class="episodes" v-if="filter.includes('episodes')">
-        <vue-slider ref="episodeSlider" v-model="episodes" v-bind="episodeOptions"></vue-slider>
+        <vue-slider ref="episodeSlider" v-model="allFilters.episodes" v-bind="episodeOptions" @change="getItemsByFilters"></vue-slider>
       </div>
 
     </div>
@@ -128,10 +128,13 @@ export default {
     return {
       showFilters: false,
 
+      allFilters: {
+        title: ''
+      },
+
       formats: ['List', 'Grid'],
       formatPicked: 'Grid',
 
-      score: [0, 100],
       scoreOptions: {
         data: null,
         eventType: 'auto',
@@ -150,13 +153,11 @@ export default {
         clickable: true
       },
 
-      key: '',
       types: null,
       genres: null,
       studios: null,
       dates: ['Summer 2019', 'Spring 2019', 'Winter 2019'],
 
-      seasons: [0, 100],
       seasonOptions: {
         data: null,
         eventType: 'auto',
@@ -175,7 +176,6 @@ export default {
         clickable: true
       },
 
-      episodes: [0, 100],
       episodeOptions: {
         data: null,
         eventType: 'auto',
@@ -203,13 +203,38 @@ export default {
     this.genres = (await GenreService.index()).data
     this.studios = (await CompanyService.studios()).data
 
-    // Refresh sliders
-    this.$nextTick(() => this.$refs.slider.refresh())
-    this.$nextTick(() => this.$refs.seasonSlider.refresh())
-    this.$nextTick(() => this.$refs.episodeSlider.refresh())
+    this.setAllFilters()
   },
 
   methods: {
+
+    setAllFilters () {
+      setTimeout(() => {
+        // Check given filters
+        if (this.$props.filter) {
+          // Loop given filters
+          for (var f = 0; f < this.$props.filter.length; f++) {
+            // Set Filters
+            if (this.filter[f] === 'score' || this.filter[f] === 'seasons' || this.filter[f] === 'episodes') {
+              this.allFilters[this.filter[f]] = [0, 100]
+            } else {
+              this.allFilters[this.filter[f]] = []
+            }
+          }
+        }
+
+        // Refresh sliders
+        if (this.$refs.slider) {
+          this.$nextTick(() => this.$refs.slider.refresh())
+        }
+        if (this.$refs.seasonSlider) {
+          this.$nextTick(() => this.$refs.seasonSlider.refresh())
+        }
+        if (this.$refs.episodeSlider) {
+          this.$nextTick(() => this.$refs.episodeSlider.refresh())
+        }
+      }, 1)
+    },
 
     showFilterMenu () {
       this.showFilters = !this.showFilters
@@ -224,12 +249,25 @@ export default {
     },
 
     async onKeyUp () {
+      // Delay (for if user is still typing)
       this.typeDelay(300)
-      if (this.key === '') {
-        this.$emit('updateItems', (await MovieService.index()).data)
-      } else {
-        this.$emit('updateItems', (await MovieService.search(this.key)).data)
+
+      // Run filters
+      this.getItemsByFilters()
+    },
+
+    async getItemsByFilters () {
+      // Filters to get parameters
+      var str = ''
+      for (var key in this.allFilters) {
+        if (str !== '') {
+          str += '&'
+        }
+        str += key + '=' + encodeURIComponent(this.allFilters[key])
       }
+
+      // Update items according to filters
+      this.$emit('updateItems', (await MovieService.search(str)).data)
     },
 
     onLabelKeyUp () {
@@ -263,8 +301,7 @@ export default {
       targetParent.querySelector('.labels').classList.toggle('active')
     },
 
-    filterToParent (filter, value)
-    {
+    filterToParent (filter, value) {
       // Update filters on parent (component)
       this.$emit('updateFilters', { 'filter': filter, 'value': value })
     }

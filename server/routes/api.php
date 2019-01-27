@@ -36,6 +36,7 @@ Route::prefix('v1')->group(function() {
         Route::get('/{id}', 'MovieController@getMovie');
         Route::get('/score/{score}', 'MovieController@getMoviesByScore');
         Route::get('/title/{title}', 'MovieController@getMoviesByTitle');
+        Route::get('/search/{search}', 'MovieController@getMoviesBySearch');
     });
 
     // Watched movies

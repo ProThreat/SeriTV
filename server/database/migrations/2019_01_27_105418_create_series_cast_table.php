@@ -15,7 +15,7 @@ class CreateSeriesCastTable extends Migration
     {
         Schema::create('series_cast', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('type');
+            $table->bigInteger('type')->nullable();
             $table->integer('season_id');
             $table->integer('people_id');
             $table->integer('series_character_id');

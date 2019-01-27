@@ -17,7 +17,7 @@
                 <img class="card-img-top" alt="Movie poster" :src="movie.image">
                 <div class="card-body">
                   <h5 class="card-title">{{movie.title}}</h5>
-                  <p class="card-text" v-if="movie.description.length>0">{{movie.description.substring(0,128)}}...</p>
+                  <p class="card-text" v-if="movie && movie.description.length>0">{{movie.description.substring(0,128)}}...</p>
                   <p class="card-text" v-else>...</p>
                   <a href="#" class="btn btn-primary">More info</a>
                 </div>
@@ -42,7 +42,7 @@ export default {
       latestMovie: {},
       movies: {},
       filters: { formats: 'Grid' },
-      theaterFilters: ['format', 'score', 'search', 'type', 'genre', 'watched', 'studios', 'seasonal_dates', 'seasons', 'episodes'],
+      theaterFilters: ['format', 'score', 'search', 'type', 'genre', 'watched', 'studios'],
       comingSoonFilters: null
     }
   },

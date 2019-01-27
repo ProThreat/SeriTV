@@ -14,7 +14,7 @@ class TypeSeeder extends Seeder
     public function run()
     {
         // Get types
-        $types = ['OVA', 'Specials', 'Extra'];
+        $types = ['TV', 'OVA', 'Specials', 'Extra'];
 
         // Insert types
         foreach($types as $type)

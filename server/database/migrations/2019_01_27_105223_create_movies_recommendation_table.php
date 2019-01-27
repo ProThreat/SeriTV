@@ -13,7 +13,7 @@ class CreateMoviesRecommendationTable extends Migration
      */
     public function up()
     {
-        Schema::create('movies_recommendation', function (Blueprint $table) {
+        Schema::create('movie_recommendations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('movies_id');

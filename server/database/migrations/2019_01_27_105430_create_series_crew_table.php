@@ -15,7 +15,7 @@ class CreateSeriesCrewTable extends Migration
     {
         Schema::create('series_crew', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('type');
+            $table->bigInteger('type')->nullable();
             $table->integer('people_id');
             $table->integer('season_id');
             $table->string('role');

@@ -8,6 +8,7 @@ import Login from '@/components/Global/Login'
 
 import Home from '@/components/Home/Index'
 import Series from '@/components/Front/Series'
+import Movies from '@/components/Front/Movies'
 
 import AdminSeries from '@/components/Admin/Series/Index'
 import AdminCreateSerie from '@/components/Admin/Series/Create'
@@ -34,6 +35,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/movies',
+      name: 'Movies',
+      component: Movies
     },
     {
       path: '/series',

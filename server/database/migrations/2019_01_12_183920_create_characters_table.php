@@ -17,8 +17,8 @@ class CreateCharactersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->string('images');
-            $table->date('birthdate');
+            $table->string('images')->nullable();
+            $table->date('birthdate')->nullable();
             $table->timestamps();
         });
     }

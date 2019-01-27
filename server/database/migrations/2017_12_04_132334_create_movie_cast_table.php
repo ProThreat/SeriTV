@@ -15,7 +15,7 @@ class CreateMovieCastTable extends Migration
     {
         Schema::create('movie_cast', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('type');
+            $table->bigInteger('type')->nullable();
             $table->integer('movie_id');
             $table->integer('people_id');
             $table->integer('movie_character_id');

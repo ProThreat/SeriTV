@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Crew extends Model
+class MovieReview extends Model
 {
     //
+    protected $guarded = ['id'];
 }

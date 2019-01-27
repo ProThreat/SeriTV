@@ -32,6 +32,49 @@ class MovieController extends Controller
         return Movie::where('title', 'LIKE', '%'.$title.'%')->get();
     }
 
+    public function getMoviesBySearch($filters)
+    {
+        // Get query
+        $query = Movie::whereNotNull('id');
+
+        // Get filters
+        parse_str($filters, $filterArray);
+        $filterArray = array_filter($filterArray);
+
+        // Seperate filters
+        $seperateFilters = ['title', 'type'];
+        $whereFilters = array_intersect_key($filterArray, array_flip($seperateFilters));
+        $relationFilters = array_diff_key($filterArray, array_flip($seperateFilters));
+
+        // Apply where filters
+        foreach($whereFilters as $key => $filter)
+            $query->where($key, 'LIKE', '%'.$filter.'%');
+
+        // Apply relation model filters
+        foreach($relationFilters as $key => $filter)
+        {
+            // If trying to get score, then get from reviews table
+            // Else make string plural (so filter is according to the naming conventions, also see Movie model)
+            $key = $key == 'score' ? 'reviews' : str_plural($key);
+            
+            // Then get rating
+            // Or if not score then filters results on given array
+            $query->whereHas($key, function($query) use($key, $filter) {
+                if($key == 'reviews') {
+                    $filter = explode(',', $filter);
+                    $query->whereBetween('rating', [$filter[0], $filter[1]]);
+                } else if($key == 'studios' || $key == 'producers' || $key == 'licensors') {
+                    $query->whereIn('name', explode(',', $filter));
+                } else {
+                    $query->whereIn(str_singular($key), explode(',', $filter));
+                }
+            });
+        }
+
+        // Results
+        return $query->get();
+    }
+
     public function getMovies()
     {
       // Get table and get parameters

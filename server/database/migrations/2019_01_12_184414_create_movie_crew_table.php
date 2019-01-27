@@ -15,7 +15,7 @@ class CreateMovieCrewTable extends Migration
     {
         Schema::create('movie_crew', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('type');
+            $table->bigInteger('type')->nullable();
             $table->integer('people_id');
             $table->string('role');
             $table->integer('movie_id');
