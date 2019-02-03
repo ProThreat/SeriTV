@@ -2,8 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import BootstrapVue from 'bootstrap-vue'
 
+import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+
+import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
@@ -16,6 +19,7 @@ import VoerroTagsInput from '@voerro/vue-tagsinput'
 
 import router from './router'
 
+Vue.use(Vuex)
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.use(require('vue-moment'))
@@ -29,10 +33,28 @@ library.add(fas)
 
 Vue.config.productionTip = false
 
+const store = new Vuex.Store({
+  state: {
+    userlogged: 'Logged user'
+  },
+  mutations: {
+    saveUserLogged (state, loggedUser) {
+      state.userlogged = loggedUser
+    }
+  },
+  actions: {
+    saveUserLogged (context, loggedUser) {
+      context.commit('saveUserLogged', loggedUser)
+    }
+  },
+  plugins: [createPersistedState()]
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

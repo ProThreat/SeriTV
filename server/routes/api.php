@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function() {
 
     // Watched movies
     Route::prefix('watched_movies')->group(function() {
-        Route::post('/', 'WatchedMoviesController@addWatched');
+        Route::post('/', 'WatchlistMoviesController@addWatched');
     });
 
     // Series

@@ -132,7 +132,7 @@ export default {
         title: ''
       },
 
-      formats: ['List', 'Grid'],
+      formats: ['List', 'Grid', '4x-Grid'],
       formatPicked: 'Grid',
 
       scoreOptions: {

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWatchedMoviesTable extends Migration
+class CreateWatchedTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateWatchedMoviesTable extends Migration
      */
     public function up()
     {
-        Schema::create('watchlist_movies', function (Blueprint $table) {
+        Schema::create('watched_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('movie_id');
-            $table->integer('watched_type');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateWatchedMoviesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watched_movies');
+        Schema::dropIfExists('watched_types');
     }
 }

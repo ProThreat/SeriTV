@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <router-view/>
+    <router-view :loggedUser="loggedUser" />
   </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
   name: 'app',
   components: {
     Header
+  },
+
+  computed: {
+    loggedUser () {
+      return this.$store.state.userlogged
+    }
   }
 }
 </script>

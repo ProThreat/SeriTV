@@ -27,6 +27,7 @@
 
 export default {
 
+  props: ['loggedUser'],
   data () {
     return {
       logoImage: require('@/assets/img/logo-test.png'),
@@ -46,8 +47,8 @@ export default {
       })
         .then(response => {
           if (response.data.success) {
-            // Save user in localStorage
-            localStorage.setItem('user', JSON.stringify(response.data.user))
+            // Save user in vuex state
+            this.$store.dispatch('saveUserLogged', response.data.user)
 
             // Redirect user
             this.$router.push('/')

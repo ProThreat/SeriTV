@@ -1,30 +1,38 @@
 <template>
-  <div class="container mt-4">
+  <div>
+
+    <div v-if="loggedUser && loggedUser.permission >= 1" class="container mt-4">
       <div class="search-wrapper">
           <input type="text" class="form-control" v-on:keyup="onKeyUp()" v-model="key" placeholder="Search title.."/>
       </div>
-    <div class="row">
+      <div class="row">
 
-        <div class="col-12 col-sm-3 mt-4" :key="movie.id" v-for="movie in movies">
-          <div class="card">
-            <img class="card-img-top" alt="Movie poster" :src="movie.image">
-            <div class="card-body">
-              <h5 class="card-title">{{movie.title}}</h5>
-              <p class="card-text" v-if="movie.description.length>0">{{movie.description.substring(0,128)}}...</p>
-              <p class="card-text" v-else>...</p>
-              <a href="#" @click="onClick(movie.id)" class="btn btn-primary">Mark as watched</a>
+          <div class="col-12 col-sm-3 mt-4" :key="movie.id" v-for="movie in movies">
+            <div class="card">
+              <img class="card-img-top" alt="Movie poster" :src="movie.image">
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text" v-if="movie.description.length>0">{{ movie.description.substring(0,128) }}...</p>
+                <p class="card-text" v-else>...</p>
+              </div>
             </div>
           </div>
-        </div>
 
+      </div>
     </div>
+    <div v-else-if="!loggedUser">
+      <b-alert variant="danger" show>You have to login to access this page</b-alert>
+    </div>
+    <div v-else>
+      <error-page />
+    </div>
+
   </div>
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import MovieService from '@/services/MovieService'
+import ErrorPage from '@/components/global/403'
 
 // wait function for onkeyup delay
 function wait (time) {
@@ -36,12 +44,18 @@ function wait (time) {
 }
 
 export default {
+
+  props: ['loggedUser'],
   data () {
     return {
       latestMovie: {},
       movies: {},
       key: ''
     }
+  },
+
+  components: {
+    ErrorPage
   },
 
   async mounted () {
@@ -56,13 +70,6 @@ export default {
       } else {
         this.movies = (await MovieService.search(this.key)).data
       }
-    },
-    onClick (movieId) {
-      let user = JSON.parse(localStorage.getItem('user'))
-      this.$http.post('http://localhost:3000/api/v1/watched_movies/', {
-        user_id: user['id'],
-        movie_id: movieId
-      })
     }
   }
 }
