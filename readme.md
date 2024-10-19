@@ -5,7 +5,7 @@ A better IMDB in the making
 ## Contributers
 
 - Kevin Ernst
-- Gijsla Abele
+- Gijs van den Abeele
 - Dwayne Hulsman
 
 ## client
